@@ -21,5 +21,5 @@ exports.connect = async () => {
     throw err;
   }
 
-  logger.info(`DB: Connected to ${conn.connection.host}`);
+  logger.info(`DB: Connected to '${conn.connection.host}'`);
 };
