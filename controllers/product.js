@@ -1,19 +1,31 @@
-exports.getAllProducts = (req, res, next) => {
-  res.status(200).json({success: true, message: 'Placeholder.'});
-}
+const Product = require('../models/Product');
 
-exports.getProductById = (req, res, next) => {
-  res.status(200).json({success: true, message: 'Placeholder.'});
-}
+exports.getAllProducts = async (req, res, next) => {
+  const products = await Product.find();
+  return res.status(200).json({ success: true, data: products });
+};
 
-exports.createProduct = (req, res, next) => {
-  res.status(200).json({success: true, message: 'Placeholder.'});
-}
+exports.getProductById = async (req, res, next) => {
+  const { id } = req.params;
+  const product = await Product.findById(id);
+  res.status(200).json({ success: true, data: product });
+};
 
-exports.updateProduct = (req, res, next) => {
-  res.status(200).json({success: true, message: 'Placeholder.'});
-}
+exports.createProduct = async (req, res, next) => {
+  const product = await Product.create(req.body);
+  res.status(201).json({ success: true, data: product });
+};
 
-exports.deleteProduct = (req, res, next) => {
-  res.status(200).json({success: true, message: 'Placeholder.'});
-}
+exports.updateProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const product = await Product.findByIdAndUpdate(id, req.body, {
+    new: true
+  });
+  res.status(200).json({ success: true, data: product });
+};
+
+exports.deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const product = await Product.findByIdAndDelete(id);
+  res.status(200).json({ success: true, data: product });
+};
