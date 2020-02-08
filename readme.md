@@ -13,3 +13,9 @@ An express starter project.
 ### TODO
 
 - Refactor the logger
+
+### Endpoints
+
+#### Test
+
+<http://localhost:5000/api/v1/test>
