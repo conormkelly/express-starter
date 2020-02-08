@@ -1,0 +1,29 @@
+{
+  "name": "express-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest",
+    "local": "nodemon -r ./dotenv/config app.js"
+  },
+  "keywords": [],
+  "author": "Conor Kelly",
+  "license": "ISC",
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "express": "^4.17.1",
+    "express-http-context": "^1.2.3",
+    "express-request-id": "^1.4.1",
+    "express-winston": "^4.0.2",
+    "mongoose": "^5.8.11",
+    "winston": "^3.2.1"
+  }
+}
