@@ -15,13 +15,13 @@ const { start } = require('./utils/startup');
 app.use(helmet());
 app.use(express.json());
 
-// For logging purposes
+// Add traceId to all requests, for correlation in the logs
 app.use(addTraceId({ attributeName: 'traceId' }));
 
-// Set req http-context to allow us to get traceId in logger
+// Allows us to get traceId in the logger module
 app.use(httpContext.middleware);
 app.use((req, res, next) => {
-  httpContext.set('req', req);
+  httpContext.set('traceId', req.traceId);
   next();
 });
 

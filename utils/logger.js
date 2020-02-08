@@ -89,8 +89,7 @@ exports.info = message => {
  */
 function buildLogEntry(info) {
   // Get traceId if present
-  const req = httpContext.get('req') || {};
-  let traceId = req.hasOwnProperty('traceId') ? req.traceId : undefined;
+  let traceId = httpContext.get('traceId');
 
   // Add traceId from express winston / error logger
   if (info.hasOwnProperty('meta')) {
