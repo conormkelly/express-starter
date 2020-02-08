@@ -23,6 +23,8 @@
     "express-http-context": "^1.2.3",
     "express-request-id": "^1.4.1",
     "express-winston": "^4.0.2",
+    "helmet": "^3.21.2",
+    "lodash": "^4.17.15",
     "mongoose": "^5.8.11",
     "winston": "^3.2.1"
   }
