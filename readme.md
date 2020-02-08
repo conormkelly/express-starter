@@ -13,9 +13,13 @@ An express starter project.
 ### TODO
 
 - Refactor the logger
+- Add error handling and validation logic in product controller
+- Add ErrorResponse class to faciliate better error responses to client
+- Add tests
 
 ### Endpoints
 
-#### Test
+#### Products
 
-<http://localhost:5000/api/v1/test>
+CRUD operations defined for the below.
+<http://localhost:5000/api/v1/products>
