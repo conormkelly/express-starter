@@ -1,6 +1,7 @@
 const logger = require('./logger');
 
 const config = require('../config');
+const dbService = require('../services/dbService');
 
 /**
  * Initialize all pre-requisites before starting the application.
@@ -8,8 +9,9 @@ const config = require('../config');
 async function initialize() {
   try {
     await config.validateEnvironmentVariables();
+    await dbService.connect();
   } catch (err) {
-    logger.error({ message: err.message, category: 'STARTUP' });
+    logger.error({ message: `${err.name}: ${err.message}`, category: 'STARTUP' });
     process.exit(1);
   }
 }
