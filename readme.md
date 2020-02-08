@@ -9,3 +9,7 @@
 ## About
 
 An express starter project.
+
+### TODO
+
+- Refactor the logger
