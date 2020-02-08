@@ -9,6 +9,7 @@
       "request": "launch",
       "name": "Local .env debug",
       "envFile": "${workspaceFolder}/.env", // Use .env environment variables
+      "outputCapture": "std", // Display logger output
       "skipFiles": [
         "<node_internals>/**"
       ],
