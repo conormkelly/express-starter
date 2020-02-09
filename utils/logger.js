@@ -49,6 +49,7 @@ exports.expressWinstonLogger = expressWinston.logger({
   dynamicMeta: (req, res) => {
     return { traceId: req.traceId };
   },
+  statusLevels: true,
   winstonInstance: logger
 });
 
