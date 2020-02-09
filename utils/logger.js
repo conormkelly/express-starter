@@ -113,12 +113,8 @@ function buildLogEntry(info) {
   // * Only expressWinstonErrorLogger is configured to include the meta property.
   if (!_.isEmpty(info.meta) && !_.isUndefined(info.meta.error)) {
     const { error, message, trace } = info.meta;
-    const errorMessage = error.hasOwnProperty('message')
-      ? error.message
-        ? typeof error === 'string'
-        : error
-      : message;
 
+    const errorMessage = `${error.name}: ${error.message}` || message;
     // Include stackTrace if it exists and it's not a known error with a status code,
     // unless we have specified that the stack should be logged.
     // Unknown errors will always log the stack.
@@ -127,8 +123,9 @@ function buildLogEntry(info) {
 
     logEntry = {
       ...logEntry,
-      message: errorMessage ? errorMessage : message,
-      stackTrace
+      message: errorMessage,
+      stackTrace,
+      category: !error.statusCode ? 'UNHANDLED' : 'KNOWN'
     };
   }
 
