@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find();
-  return res.status(200).json({ success: true, data: products });
+  res.status(200).json({ success: true, data: products });
 });
 
 exports.getProductById = asyncHandler(async (req, res, next) => {
