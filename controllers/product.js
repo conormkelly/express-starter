@@ -1,4 +1,5 @@
 const asyncHandler = require('../utils/asyncHandler');
+const ErrorResponse = require('../utils/ErrorResponse');
 const Product = require('../models/Product');
 
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
@@ -9,6 +10,11 @@ exports.getAllProducts = asyncHandler(async (req, res, next) => {
 exports.getProductById = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const product = await Product.findById(id);
+
+  if (!product) {
+    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+  }
+
   res.status(200).json({ success: true, data: product });
 });
 
@@ -19,14 +25,26 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
 
 exports.updateProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const product = await Product.findByIdAndUpdate(id, req.body, {
-    new: true
-  });
+
+  let product = await Product.findById(id);
+
+  if (!product) {
+    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+  }
+
+  product = await Product.findByIdAndUpdate(id, req.body, {new: true});
   res.status(200).json({ success: true, data: product });
 });
 
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const product = await Product.findByIdAndDelete(id);
+
+  let product = await Product.findById(id);
+
+  if (!product) {
+    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+  }
+
+  product = await Product.findByIdAndDelete(id);
   res.status(200).json({ success: true, data: product });
 });

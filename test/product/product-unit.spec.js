@@ -6,7 +6,7 @@ chai.use(sinonChai);
 
 //* Test methods
 const { expect } = chai;
-const { stub } = require('sinon');
+const sinon = require('sinon');
 
 // Mock generators
 const { mockRequest, mockResponse } = require('mock-req-res');
@@ -28,11 +28,11 @@ const {
 describe('Product Controller - Unit tests', () => {
   describe('getAllProducts', () => {
     beforeEach(() => {
-      stub(Product, 'find');
+      sinon.stub(Product, 'find');
     });
 
     afterEach(() => {
-      Product.find.restore();
+      sinon.restore();
     });
 
     it('should return 200 status and include array of products in response', async () => {
@@ -54,11 +54,11 @@ describe('Product Controller - Unit tests', () => {
 
   describe('getProductById', () => {
     beforeEach(() => {
-      stub(Product, 'findById');
+      sinon.stub(Product, 'findById');
     });
 
     afterEach(() => {
-      Product.findById.restore();
+      sinon.restore();
     });
 
     it('should return 200 with valid id provided', async () => {
@@ -83,11 +83,11 @@ describe('Product Controller - Unit tests', () => {
 
   describe('createProduct', () => {
     beforeEach(() => {
-      stub(Product, 'create');
+      sinon.stub(Product, 'create');
     });
 
     afterEach(() => {
-      Product.create.restore();
+      sinon.restore();
     });
 
     it('should return 201 with valid body provided', async () => {
@@ -112,11 +112,12 @@ describe('Product Controller - Unit tests', () => {
 
   describe('updateProduct', () => {
     beforeEach(() => {
-      stub(Product, 'findByIdAndUpdate');
+      sinon.stub(Product, 'findById');
+      sinon.stub(Product, 'findByIdAndUpdate');
     });
 
     afterEach(() => {
-      Product.findByIdAndUpdate.restore();
+      sinon.restore();
     });
 
     it('should return 200 with valid id, valid body provided', async () => {
@@ -127,6 +128,7 @@ describe('Product Controller - Unit tests', () => {
       });
 
       const res = mockResponse();
+      Product.findById.resolves(FAKE_PRODUCT);
       Product.findByIdAndUpdate.resolves(FAKE_UPDATED_PRODUCT);
 
       // Act
@@ -145,17 +147,19 @@ describe('Product Controller - Unit tests', () => {
 
   describe('deleteProduct', () => {
     beforeEach(() => {
-      stub(Product, 'findByIdAndDelete');
+      sinon.stub(Product, 'findById');
+      sinon.stub(Product, 'findByIdAndDelete');
     });
 
     afterEach(() => {
-      Product.findByIdAndDelete.restore();
+      sinon.restore();
     });
 
     it('should return 200 with valid id provided', async () => {
       // Arrange
       const req = mockRequest({ params: { id: '54edb381a13ec9142b9bb353' } });
       const res = mockResponse();
+      Product.findById.resolves(FAKE_PRODUCT);
       Product.findByIdAndDelete.resolves(FAKE_PRODUCT);
 
       // Act
