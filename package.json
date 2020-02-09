@@ -5,16 +5,21 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "jest",
+    "test": "mocha --recursive",
     "local": "nodemon -r ./dotenv/config app.js"
   },
   "keywords": [],
   "author": "Conor Kelly",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.2"
+    "mocha": "^7.0.1",
+    "mock-req-res": "^1.1.4",
+    "nodemon": "^2.0.2",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
