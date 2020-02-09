@@ -12,10 +12,8 @@ An express starter project.
 
 ### TODO
 
+- Update tests
 - Refactor the logger
-- Add error handling and validation logic in product controller
-- Add ErrorResponse class to faciliate better error responses to client
-- Add tests
 
 ### Endpoints
 
