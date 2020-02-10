@@ -12,7 +12,14 @@ const sinon = require('sinon');
 const { mockRequest, mockResponse } = require('mock-req-res');
 
 // Test data
-const { FAKE_PRODUCT, FAKE_UPDATED_PRODUCT } = require('./test-data');
+const {
+  FAKE_PRODUCT,
+  FAKE_UPDATED_PRODUCT,
+  INVALID_ID,
+  VALID_ID,
+  NON_EXISTENT_ID,
+  TEST_ERROR
+} = require('./test-data');
 
 //* Methods under test
 const Product = require('../../models/Product');
@@ -33,6 +40,24 @@ describe('Product Controller - Unit tests', () => {
 
     afterEach(() => {
       sinon.restore();
+    });
+
+    it('asyncHandler should guard against rejected promise', async () => {
+      // Arrange
+      const req = mockRequest();
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.find.rejects(TEST_ERROR);
+
+      // Act
+      await getAllProducts(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.name).to.equal(TEST_ERROR.name);
+      expect(nextError.message).to.equal(TEST_ERROR.message);
     });
 
     it('should return 200 status and include array of products in response', async () => {
@@ -61,9 +86,27 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
+    it('asyncHandler should guard against rejected promise', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: INVALID_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.rejects(TEST_ERROR);
+
+      // Act
+      await getProductById(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.name).to.equal(TEST_ERROR.name);
+      expect(nextError.message).to.equal(TEST_ERROR.message);
+    });
+
     it('should return 200 with valid id provided', async () => {
       // Arrange
-      const req = mockRequest({ params: { id: '54edb381a13ec9142b9bb353' } });
+      const req = mockRequest({ params: { id: VALID_ID } });
       const res = mockResponse();
       Product.findById.resolves(FAKE_PRODUCT);
 
@@ -78,6 +121,26 @@ describe('Product Controller - Unit tests', () => {
       });
     });
 
+    it('should return 404 if no product found', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: NON_EXISTENT_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.resolves(undefined);
+
+      // Act
+      await getProductById(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.statusCode).to.equal(404);
+      expect(nextError.message).to.equal(
+        `No product found with ID: ${NON_EXISTENT_ID}`
+      );
+    });
+
     // More "getProductById" tests here
   });
 
@@ -88,6 +151,24 @@ describe('Product Controller - Unit tests', () => {
 
     afterEach(() => {
       sinon.restore();
+    });
+
+    it('asyncHandler should guard against rejected promise', async () => {
+      // Arrange
+      const req = mockRequest({ body: { } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.create.rejects(TEST_ERROR);
+
+      // Act
+      await createProduct(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.name).to.equal(TEST_ERROR.name);
+      expect(nextError.message).to.equal(TEST_ERROR.message);
     });
 
     it('should return 201 with valid body provided', async () => {
@@ -120,10 +201,28 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
+    it('asyncHandler should guard against rejected promise', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: INVALID_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.rejects(TEST_ERROR);
+
+      // Act
+      await updateProduct(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.name).to.equal(TEST_ERROR.name);
+      expect(nextError.message).to.equal(TEST_ERROR.message);
+    });
+
     it('should return 200 with valid id, valid body provided', async () => {
       // Arrange
       const req = mockRequest({
-        params: { id: '54edb381a13ec9142b9bb353' },
+        params: { id: VALID_ID },
         body: { name: 'UpdatedProduct', price: 3.5 }
       });
 
@@ -142,6 +241,26 @@ describe('Product Controller - Unit tests', () => {
       });
     });
 
+    it('should return 404 if no product found', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: NON_EXISTENT_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.resolves(undefined);
+
+      // Act
+      await updateProduct(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.statusCode).to.equal(404);
+      expect(nextError.message).to.equal(
+        `No product found with ID: ${NON_EXISTENT_ID}`
+      );
+    });
+
     // More "updateProduct" tests here
   });
 
@@ -155,9 +274,27 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
+    it('asyncHandler should guard against rejected promise', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: INVALID_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.rejects(TEST_ERROR);
+
+      // Act
+      await deleteProduct(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.name).to.equal(TEST_ERROR.name);
+      expect(nextError.message).to.equal(TEST_ERROR.message);
+    });
+
     it('should return 200 with valid id provided', async () => {
       // Arrange
-      const req = mockRequest({ params: { id: '54edb381a13ec9142b9bb353' } });
+      const req = mockRequest({ params: { id: VALID_ID } });
       const res = mockResponse();
       Product.findById.resolves(FAKE_PRODUCT);
       Product.findByIdAndDelete.resolves(FAKE_PRODUCT);
@@ -171,6 +308,26 @@ describe('Product Controller - Unit tests', () => {
         success: true,
         data: FAKE_PRODUCT
       });
+    });
+
+    it('should return 404 if no product found', async () => {
+      // Arrange
+      const req = mockRequest({ params: { id: NON_EXISTENT_ID } });
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      Product.findById.resolves(undefined);
+
+      // Act
+      await deleteProduct(req, res, next);
+
+      // Assert
+      expect(next).to.have.been.calledOnce;
+      const nextError = next.args[0][0];
+      expect(nextError.statusCode).to.equal(404);
+      expect(nextError.message).to.equal(
+        `No product found with ID: ${NON_EXISTENT_ID}`
+      );
     });
 
     // More "deleteProduct" tests here
