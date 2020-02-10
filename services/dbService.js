@@ -13,7 +13,7 @@ exports.connect = async () => {
   try {
     conn = await mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
       useUnifiedTopology: true
     });
   } catch (err) {
