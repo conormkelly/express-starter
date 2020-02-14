@@ -42,7 +42,7 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
-    it('asyncHandler should guard against rejected promise', async () => {
+    it('should guard against unhandled promise rejection with asyncHandler', async () => {
       // Arrange
       const req = mockRequest();
       const res = mockResponse();
@@ -86,7 +86,7 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
-    it('asyncHandler should guard against rejected promise', async () => {
+    it('should guard against unhandled promise rejection with asyncHandler', async () => {
       // Arrange
       const req = mockRequest({ params: { id: INVALID_ID } });
       const res = mockResponse();
@@ -137,7 +137,7 @@ describe('Product Controller - Unit tests', () => {
       const nextError = next.args[0][0];
       expect(nextError.statusCode).to.equal(404);
       expect(nextError.message).to.equal(
-        `No product found with ID: ${NON_EXISTENT_ID}`
+        `No product found with ID: '${NON_EXISTENT_ID}'.`
       );
     });
 
@@ -153,7 +153,7 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
-    it('asyncHandler should guard against rejected promise', async () => {
+    it('should guard against unhandled promise rejection with asyncHandler', async () => {
       // Arrange
       const req = mockRequest({ body: { } });
       const res = mockResponse();
@@ -201,7 +201,7 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
-    it('asyncHandler should guard against rejected promise', async () => {
+    it('should guard against unhandled promise rejection with asyncHandler', async () => {
       // Arrange
       const req = mockRequest({ params: { id: INVALID_ID } });
       const res = mockResponse();
@@ -257,7 +257,7 @@ describe('Product Controller - Unit tests', () => {
       const nextError = next.args[0][0];
       expect(nextError.statusCode).to.equal(404);
       expect(nextError.message).to.equal(
-        `No product found with ID: ${NON_EXISTENT_ID}`
+        `No product found with ID: '${NON_EXISTENT_ID}'.`
       );
     });
 
@@ -274,7 +274,7 @@ describe('Product Controller - Unit tests', () => {
       sinon.restore();
     });
 
-    it('asyncHandler should guard against rejected promise', async () => {
+    it('should guard against unhandled promise rejection with asyncHandler', async () => {
       // Arrange
       const req = mockRequest({ params: { id: INVALID_ID } });
       const res = mockResponse();
@@ -326,7 +326,7 @@ describe('Product Controller - Unit tests', () => {
       const nextError = next.args[0][0];
       expect(nextError.statusCode).to.equal(404);
       expect(nextError.message).to.equal(
-        `No product found with ID: ${NON_EXISTENT_ID}`
+        `No product found with ID: '${NON_EXISTENT_ID}'.`
       );
     });
 
