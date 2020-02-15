@@ -1,5 +1,5 @@
-const asyncHandler = require('../utils/error-handling/asyncHandler');
-const ErrorResponse = require('../utils/error-handling/ErrorResponse');
+const asyncHandler = require('../utils/error/asyncHandler');
+const ErrorResponse = require('../utils/error/ErrorResponse');
 const Product = require('../models/Product');
 
 exports.getAllProducts = asyncHandler(async (req, res, next) => {

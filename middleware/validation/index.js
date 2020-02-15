@@ -1,4 +1,4 @@
-const ErrorResponse = require('../../utils/error-handling/ErrorResponse');
+const ErrorResponse = require('../../utils/error/ErrorResponse');
 
 const VALID_OBJECT_ID_REGEX = /^[a-f\d]{24}$/i;
 

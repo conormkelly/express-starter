@@ -1,5 +1,5 @@
 const logger = require('../utils/logger');
-const AppError = require('../utils/error-handling/AppError');
+const AppError = require('../utils/error/AppError');
 
 const REQUIRED_ENV_VARS = ['NODE_ENV', 'PORT', 'MONGO_URI'];
 

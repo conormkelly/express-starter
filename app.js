@@ -6,9 +6,9 @@ const addTraceId = require('express-request-id');
 const httpContext = require('express-http-context');
 const { expressWinstonLogger, expressWinstonErrorLogger } = require('./utils/logger');
 const router = require('./routes');
-const invalidJSONBodyHandler = require('./middleware/invalidJSONBodyHandler');
-const invalidRouteHandler = require('./middleware/invalidRouteHandler');
-const errorHandler = require('./middleware/errorHandler');
+const invalidJSONBodyHandler = require('./middleware/error/invalidJSONBodyHandler');
+const invalidRouteHandler = require('./middleware/error/invalidRouteHandler');
+const errorHandler = require('./middleware/error/errorHandler');
 
 const { start } = require('./utils/startup');
 

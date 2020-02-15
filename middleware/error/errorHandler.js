@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/error-handling/ErrorResponse');
+const ErrorResponse = require('../../utils/error/ErrorResponse');
 
 /**
  * Returns error response to the client.

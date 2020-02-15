@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/error-handling/ErrorResponse');
+const ErrorResponse = require('../../utils/error/ErrorResponse');
 
 /**
  * Returns a formulated error response if express.json / bodyparser throws an error.
