@@ -9,6 +9,7 @@ A modern express starter project featuring:
 - 12-factor app approach to environment variables
 - Robust logging via winston and express-winston
 - trace/correlation ID logging
+- Validation middleware examples
 - Unit testing
 
 ## How to run
