@@ -24,7 +24,7 @@ A modern express starter project featuring:
 
 ## Tests
 
-There is a suite of unit tests written for the controller methods.
+There is a suite of unit tests written for the controller methods and validation middleware.  
 *Integration / smoke tests with Postman to follow.*
 
 ```sh
