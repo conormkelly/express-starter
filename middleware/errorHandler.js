@@ -8,7 +8,7 @@ function errorHandler(err, req, res, next) {
   if (err instanceof ErrorResponse) {
     return res
       .status(err.statusCode)
-      .json({ success: false, message: err.message });
+      .json({ success: false, message: err.message, details: err.details });
   }
 
   // Return 500 with standard message, to prevent leaking errors to the client
