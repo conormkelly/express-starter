@@ -12,7 +12,12 @@ exports.getProductById = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(id);
 
   if (!product) {
-    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+    return next(
+      new ErrorResponse({
+        message: `No product found with ID: '${id}'.`,
+        statusCode: 404
+      })
+    );
   }
 
   res.status(200).json({ success: true, data: product });
@@ -29,10 +34,15 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   let product = await Product.findById(id);
 
   if (!product) {
-    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+    return next(
+      new ErrorResponse({
+        message: `No product found with ID: '${id}'.`,
+        statusCode: 404
+      })
+    );
   }
 
-  product = await Product.findByIdAndUpdate(id, req.body, {new: true});
+  product = await Product.findByIdAndUpdate(id, req.body, { new: true });
   res.status(200).json({ success: true, data: product });
 });
 
@@ -42,7 +52,12 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
   let product = await Product.findById(id);
 
   if (!product) {
-    return next(new ErrorResponse(`No product found with ID: ${id}`, 404));
+    return next(
+      new ErrorResponse({
+        message: `No product found with ID: '${id}'.`,
+        statusCode: 404
+      })
+    );
   }
 
   product = await Product.findByIdAndDelete(id);

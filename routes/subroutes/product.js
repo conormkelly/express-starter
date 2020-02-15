@@ -10,11 +10,14 @@ const {
   deleteProduct
 } = require('../../controllers/product');
 
+// Validation middleware
+const { validateId } = require('../../middleware/validation');
+
 // Associate controller methods with routes
-router.route('/').get(getAllProducts);
-router.route('/:id').get(getProductById);
-router.route('/').post(createProduct);
-router.route('/:id').put(updateProduct);
-router.route('/:id').delete(deleteProduct);
+router.get('/', getAllProducts);
+router.get('/:id', validateId('product'), getProductById);
+router.post('/', createProduct);
+router.put('/:id', validateId('product'), updateProduct);
+router.delete('/:id', validateId('product'), deleteProduct);
 
 module.exports = router;
